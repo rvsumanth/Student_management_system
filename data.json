@@ -1,6 +1,17 @@
 {
-    "1": {
-        "name": "sumanth",
-        "age": 22
+    "2": {
+        "roll number": 2,
+        "name": "Adam",
+        "age": 20,
+        "dob": "10-10-2004",
+        "phone": 1231231234,
+        "Address": {
+            "state": "LA",
+            "district": "Chicago",
+            "city": "Whitehouse",
+            "pincode": "123123"
+        },
+        "branch": "AIML",
+        "fees": 40000
     }
 }
