@@ -2,6 +2,7 @@ import json
 from utils import *
 from Custom_Exceptions import *
 
+
 class Student:
     def __init__(self, name: str, age: int, dob: str, phone: int, state: str, 
                  district: str, city: str, pincode: int, roll: int, branch: str, 
@@ -49,7 +50,6 @@ class Student:
                 json.dump(all_data, f, indent = 4)
         
 
-    
     def get_student(self, id: int) -> dict:
        try:
             with open('data.json', 'r') as f:
@@ -80,6 +80,7 @@ class Student:
         else:
             raise StudentNotFound()
         
+        
     def delete_student(self, id) -> bool:
         try:
             with open('data.json' , 'r') as f:
@@ -96,6 +97,40 @@ class Student:
             raise StudentNotFound()
         
         return False
+    
+
+
+class User_data():
+    def __init__(self, role: str, id: int, Username: str, Password: str):
+        self.id = id
+        try:
+            with open('data.json', 'r') as f:
+                all_data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print('database is Empty')
+        else:
+            student_key = str(self.id)
+            if student_key in all_data:
+                self.role = role
+                self.username = Username
+                self.password = Password
+                try: 
+                    with open('user_data.json', 'r') as f:
+                        cred_data = json.load(f)
+                except (FileNotFoundError, json.JSONDecodeError):
+                    cred_data = {}
+                cred_data[student_key] = {
+                    'role' : self.role,
+                    'username': self.username,
+                    'password': self.password
+                }
+                with open('user_data.json','w') as f:
+                    json.dump(cred_data, f, indent = 4)
+            else:
+                raise StudentNotFound('Student doesnot exist please create student data first')
+
+
+
         
         
 
