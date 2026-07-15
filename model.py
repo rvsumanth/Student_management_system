@@ -55,8 +55,8 @@ class Student:
             with open('data.json', 'r') as f:
               data = json.load(f)
         
-       except (FileNotFoundError, json.JSONDecodeError) as e:
-           print(f'Error: {e}')
+       except (FileNotFoundError, json.JSONDecodeError):
+           return False
         
        else:
            if str(id) in data:
@@ -85,8 +85,8 @@ class Student:
         try:
             with open('data.json' , 'r') as f:
                 data = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            print(f'Error: {e}')
+        except (FileNotFoundError, json.JSONDecodeError):
+            return False
         
         if str(id) in data:
             del data[str(id)]
@@ -95,7 +95,6 @@ class Student:
             return True
         else:
             raise StudentNotFound()
-        
         return False
     
 
@@ -128,6 +127,28 @@ class User_data():
                     json.dump(cred_data, f, indent = 4)
             else:
                 raise StudentNotFound('Student doesnot exist please create student data first')
+        
+    def update_cred(self, id) -> bool:
+        try:
+            with open('user_data.json', 'r') as f:
+                all_data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return False
+        
+        student_key = str(id)
+        if student_key in all_data:
+            data = collect_cred_data()
+            with open('user_data.json', 'w') as f:
+                all_data[str(id)] = data
+                json.dump(all_data, f, indent = 4)
+            return True
+        else:
+            raise StudentNotFound()
+        
+        
+        
+        
+
 
 
 
